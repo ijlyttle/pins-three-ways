@@ -20,9 +20,17 @@ jobs:
       - name: Set up renv
         uses: r-lib/actions/setup-renv@v2
 
-      - name: Publish to GitHub Pages (and render)
-        uses: quarto-dev/quarto-actions/publish@v2
+      - name: Render book
+        # Add any command line argument needed
+        run: |
+          quarto render
+
+      - name: Deploy 🚀
+        # only deploy when push to main
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          target: gh-pages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
+          # The branch the action should deploy to.
+          branch: gh-pages
+          # The folder the action should deploy. Adapt if you changed in Quarto config
+          folder: _book
