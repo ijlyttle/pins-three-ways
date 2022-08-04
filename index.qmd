@@ -1,0 +1,5 @@
+# Preface {.unnumbered}
+
+The purpose of this book is to make a brief demonstration of the pins package using R and Python, and to imagine how it might be used with JavaScript.
+
+

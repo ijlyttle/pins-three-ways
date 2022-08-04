@@ -1,0 +1,24 @@
+project:
+  type: book
+
+book:
+  title: "Pins: Three Ways"
+  author: "Ian Lyttle"
+  date: "8/4/2022"
+  chapters:
+    - index.qmd
+
+date: today
+date-format: "YYYY-MM-DD"
+
+resources:
+  - pins/*
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+
+
