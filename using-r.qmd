@@ -133,4 +133,25 @@ The fact that there are no differences is one of the many cool things about arro
 
 ## Remote board
 
+With this board now availble using GitHub Pages, we can use `board_url()`, which I think is a great way to share data publicly, i.e. without requiring authentication.
+
+```{r}
+url_pin <- function(name) {
+  glue::glue("https://ijlyttle.github.io/pins-three-ways/pins/{name}/")
+} 
+
+
+board_remote <- 
+  board_url(c(
+    `penguins-json` = url_pin("penguins-json"),
+    `penguins-arrow` = url_pin("penguins-arrow")
+  ))
+```
+
 ### Reading pins
+
+```{r}
+#| eval: false
+penguins_json_remote <- pin_read(board_remote, name = "penguins-json")
+compare(penguins_json, penguins_json_remote)
+```
