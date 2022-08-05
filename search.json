@@ -25,6 +25,6 @@
     "href": "using-r.html#remote-board",
     "title": "1  Using R",
     "section": "1.2 Remote board",
-    "text": "1.2 Remote board\n\n1.2.1 Reading pins"
+    "text": "1.2 Remote board\nWith this board now availble using GitHub Pages, we can use board_url(), which I think is a great way to share data publicly, i.e. without requiring authentication.\n\nurl_pin <- function(name) {\n  glue::glue(\"https://ijlyttle.github.io/pins-three-ways/pins/{name}/\")\n} \n\n\nboard_remote <- \n  board_url(c(\n    `penguins-json` = url_pin(\"penguins-json\"),\n    `penguins-arrow` = url_pin(\"penguins-arrow\")\n  ))\n\n\n1.2.1 Reading pins\n\npenguins_json_remote <- pin_read(board_remote, name = \"penguins-json\")\ncompare(penguins_json, penguins_json_remote)"
   }
 ]
