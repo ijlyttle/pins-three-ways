@@ -27,6 +27,7 @@ ul.task-list{list-style: none;}
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./using-r.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -93,6 +94,11 @@ ul.task-list{list-style: none;}
   <a href="./index.html" class="sidebar-item-text sidebar-link active">Preface</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./using-r.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Using R</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -149,6 +155,14 @@ ul.task-list{list-style: none;}
 <li><p><strong>pin</strong>: a “thing” to be shared as a file. It could be a data frame, a model, a nested list (dictionary, object). If it can be serialized to a file, it can be pinned. Some serializations, such as CSV, JSON, and arrow, are common to multiple languages (R, Python, JavaScript), so can be used for cross-language collaboration. Other serializations are specific to a language (pickle for Python, rds for R).</p></li>
 <li><p><strong>board</strong>: a collection of pins hosted at a “place”. A board could be hosted at Azure Blob Storage, an Amazon S3 Bucket, RStudio (soon to be Posit) Connect, a local filesystem, a remote URL, …</p></li>
 </ul>
+<p>Pins distinguishes itself from straightforward filesharing by:</p>
+<ul>
+<li>storing metadata, including user-defined metadata.</li>
+<li>this metadata allows pins to handle deserialization automatically.</li>
+<li>supporting versioning.</li>
+<li>supporting authentication for boards (e.g.&nbsp;AWS S3).</li>
+<li>caching results locally, so that reading a pin may not require a download.</li>
+</ul>
 <section id="rest-of-the-book" class="level2">
 <h2 class="anchored" data-anchor-id="rest-of-the-book">Rest of the book</h2>
 <p>In the rest of the book I (plan to):</p>
@@ -169,6 +183,27 @@ ul.task-list{list-style: none;}
 <li>read the data-frame pins written using R and Python, using <a href="https://uwdata.github.io/arquero/">arquero</a>, which supports the <a href="https://arrow.apache.org/docs/js/">arrow</a> format.</li>
 </ul></li>
 </ul>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Quarto implementation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Every time a pin is written, a new file is created on the board; this supports versioning. I don’t want to write a new version of the same file each time this book is rendered (especially on CI).</p>
+<p>To avoid this, for code-blocks where I write pins:</p>
+<ul>
+<li>I include code that I run only manually.</li>
+<li>I paste the response into the prose manually.</li>
+</ul>
+</div>
+</div>
+</div>
 </section>
 <section id="perspectives" class="level2">
 <h2 class="anchored" data-anchor-id="perspectives">Perspectives</h2>
@@ -276,6 +311,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./using-r.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Using R</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
