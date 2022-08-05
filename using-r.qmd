@@ -1,0 +1,136 @@
+# Using R
+
+The first implementation of the [pins](https://pins.rstudio.com/) package was made in R.
+In this chapter, I will:
+
+ - create a board on my local filesystem.
+ - write pins to the board.
+ - include the board as a part of this book's website.
+ - read pins from the board.
+
+```{r}
+#| message: false
+library("pins")
+library("here")
+library("palmerpenguins")
+library("waldo")
+library("conflicted")
+```
+
+## Local board
+
+The first step is to create a board:
+
+```{r}
+board_local <- board_folder(here("pins"))
+```
+
+### Writing pins
+
+The next step is to write a pin. Let's write the penguins data-frame as a JSON pin:
+
+```{r}
+#| eval: false
+pin_write(
+  board_local, 
+  x = penguins, 
+  name = "penguins-json", 
+  type = "json",
+  metadata = list(
+    authors = c("Allison Horst", "Alison Hill", "Kristen Gorman"),
+    license = "CCO",
+    url = "https://allisonhorst.github.io/palmerpenguins/"
+  )
+)
+```
+
+``` default
+Creating new version '20220805T171936Z-fa33e'
+Writing to pin 'penguins-json'
+```
+
+As you can see, the version number is a combination of the creation time (UTC) and a (shortened) hash of the contents.
+
+I also want to create an [arrow](https://arrow.apache.org/docs/r/) version of the pin. 
+
+The `pin_write()` function offers `type = "arrow"`, which uses `arrow::write_feather()`.
+However, the default behavior is to use compression; pins does not offer (so far as I know) a way to supply the `compression` argument to `arrow::write_feather()`. 
+This presents a problem for me because the arrow implementation for JavaScript does not support compression.
+
+It should not surprise you that pins offers an escape hatch, I can wrap `pins_upload()` in a function:
+
+```{r}
+pin_write_arrow_uncompressed <- function(board, x, name = NULL, ...) {
+  
+  tempfile <- withr::local_tempfile()
+  
+  arrow::write_feather(x, tempfile, compression = "uncompressed")
+  
+  result <- pins::pin_upload(
+    board,
+    paths = tempfile,
+    name = name,
+    ...
+  )
+  
+  message(glue::glue("Writing to pin '{name}'"))
+  
+  invisible(result)
+}
+```
+
+```{r}
+#| eval: false
+pin_write_arrow_uncompressed(
+  board_local, 
+  x = penguins, 
+  name = "penguins-arrow", 
+  metadata = list(
+    authors = c("Allison Horst", "Alison Hill", "Kristen Gorman"),
+    license = "CCO",
+    url = "https://allisonhorst.github.io/palmerpenguins/"
+  )
+)
+```
+
+``` default
+Creating new version '20220805T175034Z-ef034'
+Writing to pin 'penguins-arrow'
+```
+
+### Reading pins 
+
+```{r}
+penguins_json <- pin_read(board_local, name = "penguins-json")
+compare(penguins, penguins_json)
+```
+
+We see some differences between the original ("old") version and "new" version of penguins:
+
+ - new version does not have the "tibble" classes.
+ - new version does not know that some of the colunms are factors.
+ 
+These are not huge differences; in fact, the JSON format has no way of encoding that something is a factor.
+
+Let's look at the arrow version.
+Because we used a file format (using `pin_upload()`), we need also to write a handler for `pin_download()`:
+
+```{r}
+pin_read_arrow_uncompressed <- function(board, name, ...) {
+  
+  tempfile <- pins::pin_download(board, name, ...)
+  
+  arrow::read_feather(tempfile)
+}
+```
+
+```{r}
+penguins_arrow <- pin_read_arrow_uncompressed(board_local, "penguins-arrow")
+compare(penguins, penguins_arrow)
+```
+
+The fact that there are no differences is one of the many cool things about arrow.
+
+## Remote board
+
+### Reading pins
