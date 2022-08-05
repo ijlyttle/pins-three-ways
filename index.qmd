@@ -10,6 +10,14 @@ Pins helps you manage sharing data with yourself, others, or even CI processes. 
  
  - **board**: a collection of pins hosted at a "place". 
  A board could be hosted at Azure Blob Storage, an Amazon S3 Bucket, RStudio (soon to be Posit) Connect, a local filesystem, a remote URL, ...
+ 
+Pins distinguishes itself from straightforward filesharing by:
+
+ - storing metadata, including user-defined metadata.
+ - this metadata allows pins to handle deserialization automatically.
+ - supporting versioning.
+ - supporting authentication for boards (e.g. AWS S3).
+ - caching results locally, so that reading a pin may not require a download.
 
 ## Rest of the book
 
@@ -25,6 +33,17 @@ In the rest of the book I (plan to):
   - use JavaScript to:
     - read the data-frame pins written using R and Python, using [arquero](https://uwdata.github.io/arquero/), which supports the [arrow](https://arrow.apache.org/docs/js/) format.
  
+:::{.callout-note collapse="true"}
+## Quarto implementation
+
+Every time a pin is written, a new file is created on the board; this supports versioning.
+I don't want to write a new version of the same file each time this book is rendered (especially on CI).
+
+To avoid this, for code-blocks where I write pins:
+
+ - I include code that I run only manually.
+ - I paste the response into the prose manually.
+::: 
 
 ## Perspectives
 

@@ -1,0 +1,15 @@
+file: penguins-json.json
+file_size: 51689
+pin_hash: fa33edca394e4359
+type: json
+title: 'penguins-json: a pinned 344 x 8 data frame'
+description: ~
+created: 20220805T171936Z
+api_version: 1.0
+user:
+  authors:
+  - Allison Horst
+  - Alison Hill
+  - Kristen Gorman
+  license: CCO
+  url: https://allisonhorst.github.io/palmerpenguins/

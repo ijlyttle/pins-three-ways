@@ -22,6 +22,11 @@ jobs:
           # version: 0.9.105
 
       # add software dependencies here
+      - name: Install additional libraries on Linux
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y libcurl4-openssl-dev
+
       - name: Set up renv
         uses: r-lib/actions/setup-renv@v2
 
