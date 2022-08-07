@@ -4,7 +4,7 @@ pin_hash: fa33edca394e4359
 type: json
 title: 'penguins-json: a pinned 344 x 8 data frame'
 description: ~
-created: 20220805T171936Z
+created: 20220807T184610Z
 api_version: 1.0
 user:
   authors:
