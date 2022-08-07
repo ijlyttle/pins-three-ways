@@ -212,8 +212,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>create a board on my local filesystem.</li>
 <li>write pins to the board.</li>
+<li>read these pins back from the local board.</li>
 <li>include the board as a part of this book’s website.</li>
-<li>read pins from the board.</li>
+<li>read pins from the remote board.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"pins"</span>)</span>
@@ -331,7 +332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="deploying-pins" class="level3" data-number="1.1.3">
 <h3 data-number="1.1.3" class="anchored" data-anchor-id="deploying-pins"><span class="header-section-number">1.1.3</span> Deploying pins</h3>
-<p>To make it easier to deploy a board on GitHub (or any other web server), I am using the <a href="https://ijlyttle.github.io/pinsManifest/">pinsManifest</a> package to create a manifest of pins. This will make it easier to create a <code>board_url()</code> to read pins.</p>
+<p>To make it easier to deploy a board on GitHub (or any other web server), I am using the experimental <a href="https://ijlyttle.github.io/pinsManifest/">pinsManifest</a> package to create a manifest of pins. This file, <code>pins.txt</code> is written to the board’s root directory; it will make it easier to create a <code>board_url()</code> to read pins.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pin_write_manifest</span>(board_here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -339,16 +340,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="remote-board" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="remote-board"><span class="header-section-number">1.2</span> Remote board</h2>
-<p>With this board now availble using GitHub Pages, we can use <code>board_url()</code>, which I think is a great way to share data publicly, i.e.&nbsp;without requiring authentication.</p>
+<p>With this board now availble using GitHub Pages, we can use <code>board_url()</code>, which can be useful for sharing data publicly, i.e.&nbsp;without requiring authentication.</p>
+<p>Note that we use the <code>board_url_manifest()</code> in the experimental <a href="https://ijlyttle.github.io/pinsManifest/">pinsManifest</a> package to build the board. This uses the manifest file, <code>pins.txt</code>, to compile the information needed to build a <code>pins::board_url()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>board_remote <span class="ot">&lt;-</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">board_url_manifest</span>(<span class="st">"https://ijlyttle.github.io/pins-three-ways/pins/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="reading-pins-1" class="level3" data-number="1.2.1">
 <h3 data-number="1.2.1" class="anchored" data-anchor-id="reading-pins-1"><span class="header-section-number">1.2.1</span> Reading pins</h3>
+<p>It should not surprise us that the remote versions of the pins are the identical to the local versions.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>penguins_json_remote <span class="ot">&lt;-</span> <span class="fu">pin_read</span>(board_remote, <span class="at">name =</span> <span class="st">"penguins-json"</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span>(penguins_json, penguins_json_remote)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✔ No differences</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>penguins_arrow_remote <span class="ot">&lt;-</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pin_read_arrow_uncompressed</span>(board_remote, <span class="at">name =</span> <span class="st">"penguins-arrow"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">compare</span>(penguins_arrow, penguins_arrow_remote)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>✔ No differences</code></pre>
+</div>
 </div>
 
 
