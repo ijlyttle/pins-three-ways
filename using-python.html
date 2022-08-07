@@ -171,7 +171,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#folder-board" id="toc-folder-board" class="nav-link active" data-scroll-target="#folder-board"> <span class="header-section-number">2.1</span> Folder board</a>
+  <ul class="collapse">
+  <li><a href="#read" id="toc-read" class="nav-link" data-scroll-target="#read"> <span class="header-section-number">2.1.1</span> Read</a></li>
+  </ul></li>
+  <li><a href="#remote-board" id="toc-remote-board" class="nav-link" data-scroll-target="#remote-board"> <span class="header-section-number">2.2</span> Remote board</a>
+  <ul class="collapse">
+  <li><a href="#read-1" id="toc-read-1" class="nav-link" data-scroll-target="#read-1"> <span class="header-section-number">2.2.1</span> Read</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -207,11 +220,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pins <span class="im">import</span> board_folder, board_urls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="folder-board" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="folder-board"><span class="header-section-number">2.1</span> Folder board</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>board_here <span class="op">=</span> board_folder(<span class="st">"pins"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>board_here <span class="op">=</span> board_folder(<span class="st">"pins"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>board_here.pin_list()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['pins.txt', 'penguins-arrow', 'penguins-json', 'penguins-csv']</code></pre>
+</div>
+</div>
+<section id="read" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="read"><span class="header-section-number">2.1.1</span> Read</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>penguins_csv <span class="op">=</span> board_here.pin_read(<span class="st">"penguins-csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>penguins_csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       species     island  bill_length_mm  ...  body_mass_g     sex  year
+0       Adelie  Torgersen            39.1  ...       3750.0    male  2007
+1       Adelie  Torgersen            39.5  ...       3800.0  female  2007
+2       Adelie  Torgersen            40.3  ...       3250.0  female  2007
+3       Adelie  Torgersen             NaN  ...          NaN     NaN  2007
+4       Adelie  Torgersen            36.7  ...       3450.0  female  2007
+..         ...        ...             ...  ...          ...     ...   ...
+339  Chinstrap      Dream            55.8  ...       4000.0    male  2009
+340  Chinstrap      Dream            43.5  ...       3400.0  female  2009
+341  Chinstrap      Dream            49.6  ...       3775.0    male  2009
+342  Chinstrap      Dream            50.8  ...       4100.0    male  2009
+343  Chinstrap      Dream            50.2  ...       3775.0  female  2009
+
+[344 rows x 8 columns]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="remote-board" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="remote-board"><span class="header-section-number">2.2</span> Remote board</h2>
+<p>I don’t think I will create a Python package; maybe I can just put together a quick script to convert a pins manafest into a dictionary.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yaml</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># read file, parse into manifest</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>url_root <span class="op">=</span> <span class="st">"https://ijlyttle.github.io/pins-three-ways/pins"</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>url_root<span class="sc">}</span><span class="ss">/pins.txt"</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>manifest <span class="op">=</span> yaml.safe_load(req.text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pin_paths <span class="op">=</span> {}</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, value <span class="kw">in</span> manifest.items():</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    pin_paths[key] <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>key<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">/"</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>pin_paths   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'penguins-arrow': 'penguins-arrow/20220807T184628Z-ef034/', 'penguins-csv': 'penguins-csv/20220807T212556Z-809e9/', 'penguins-json': 'penguins-json/20220807T184610Z-fa33e/'}</code></pre>
+</div>
+</div>
+<p>The Python version has a board constructor <code>board_urls()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>board_remote <span class="op">=</span> board_urls(url_root, pin_paths)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>board_remote.pin_list()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['penguins-arrow', 'penguins-csv', 'penguins-json']</code></pre>
+</div>
+</div>
+<section id="read-1" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="read-1"><span class="header-section-number">2.2.1</span> Read</h3>
+<p>We can read the CSV pin:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>board_remote.pin_read(<span class="st">"penguins-csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       species     island  bill_length_mm  ...  body_mass_g     sex  year
+0       Adelie  Torgersen            39.1  ...       3750.0    male  2007
+1       Adelie  Torgersen            39.5  ...       3800.0  female  2007
+2       Adelie  Torgersen            40.3  ...       3250.0  female  2007
+3       Adelie  Torgersen             NaN  ...          NaN     NaN  2007
+4       Adelie  Torgersen            36.7  ...       3450.0  female  2007
+..         ...        ...             ...  ...          ...     ...   ...
+339  Chinstrap      Dream            55.8  ...       4000.0    male  2009
+340  Chinstrap      Dream            43.5  ...       3400.0  female  2009
+341  Chinstrap      Dream            49.6  ...       3775.0    male  2009
+342  Chinstrap      Dream            50.8  ...       4100.0    male  2009
+343  Chinstrap      Dream            50.2  ...       3775.0  female  2009
+
+[344 rows x 8 columns]</code></pre>
+</div>
 </div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
