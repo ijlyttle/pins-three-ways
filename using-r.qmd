@@ -15,6 +15,7 @@ library("here")
 library("palmerpenguins")
 library("waldo")
 library("conflicted")
+library("pinsManifest") # https://ijlyttle.github.io/pinsManifest/
 ```
 
 ## Local board
@@ -22,7 +23,7 @@ library("conflicted")
 The first step is to create a board:
 
 ```{r}
-board_local <- board_folder(here("pins"))
+board_here <- board_folder(here("pins"), versioned = FALSE)
 ```
 
 ### Writing pins
@@ -32,7 +33,7 @@ The next step is to write a pin. Let's write the penguins data-frame as a JSON p
 ```{r}
 #| eval: false
 pin_write(
-  board_local, 
+  board_here, 
   x = penguins, 
   name = "penguins-json", 
   type = "json",
@@ -40,7 +41,8 @@ pin_write(
     authors = c("Allison Horst", "Alison Hill", "Kristen Gorman"),
     license = "CCO",
     url = "https://allisonhorst.github.io/palmerpenguins/"
-  )
+  ),
+  versioned = FALSE
 )
 ```
 
@@ -82,7 +84,7 @@ pin_write_arrow_uncompressed <- function(board, x, name = NULL, ...) {
 ```{r}
 #| eval: false
 pin_write_arrow_uncompressed(
-  board_local, 
+  board_here, 
   x = penguins, 
   name = "penguins-arrow", 
   metadata = list(
@@ -101,7 +103,7 @@ Writing to pin 'penguins-arrow'
 ### Reading pins 
 
 ```{r}
-penguins_json <- pin_read(board_local, name = "penguins-json")
+penguins_json <- pin_read(board_here, name = "penguins-json")
 compare(penguins, penguins_json)
 ```
 
@@ -125,27 +127,30 @@ pin_read_arrow_uncompressed <- function(board, name, ...) {
 ```
 
 ```{r}
-penguins_arrow <- pin_read_arrow_uncompressed(board_local, "penguins-arrow")
+penguins_arrow <- pin_read_arrow_uncompressed(board_here, "penguins-arrow")
 compare(penguins, penguins_arrow)
 ```
 
 The fact that there are no differences is one of the many cool things about arrow.
+
+### Deploying pins
+
+To make it easier to deploy a board on GitHub (or any other web server), I am using the [pinsManifest](https://ijlyttle.github.io/pinsManifest/) package to create a manifest of pins.
+This will make it easier to create a `board_url()` to read pins.
+
+```{r}
+#| eval: false
+pin_write_manifest(board_here)
+```
 
 ## Remote board
 
 With this board now availble using GitHub Pages, we can use `board_url()`, which I think is a great way to share data publicly, i.e. without requiring authentication.
 
 ```{r}
-url_pin <- function(name) {
-  glue::glue("https://ijlyttle.github.io/pins-three-ways/pins/{name}/")
-} 
-
-
+#| eval: false
 board_remote <- 
-  board_url(c(
-    `penguins-json` = url_pin("penguins-json"),
-    `penguins-arrow` = url_pin("penguins-arrow")
-  ))
+  board_url_manifest("https://ijlyttle.github.io/pins-three-ways/pins/")
 ```
 
 ### Reading pins
