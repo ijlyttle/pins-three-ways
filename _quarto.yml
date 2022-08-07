@@ -8,9 +8,12 @@ book:
   chapters:
     - index.qmd
     - using-r.qmd
+    - using-python.qmd
 
 date: today
 date-format: "YYYY-MM-DD"
+
+engine: knitr
 
 resources:
   - pins
