@@ -18,7 +18,56 @@ use_virtualenv("renv/python/virtualenvs/renv-python-3.10")
 from pins import board_folder, board_urls
 ```
 
+## Folder board
+
 ```{python}
 board_here = board_folder("pins")
+board_here.pin_list()
 ```
 
+### Read
+
+```{python}
+penguins_csv = board_here.pin_read("penguins-csv")
+```
+
+```{python}
+penguins_csv
+```
+
+## Remote board
+
+I don't think I will create a Python package; maybe I can just put together a quick script to convert a pins manafest into a dictionary.
+
+```{python}
+import requests
+import yaml
+
+# read file, parse into manifest
+url_root = "https://ijlyttle.github.io/pins-three-ways/pins"
+req = requests.get(f"{url_root}/pins.txt")
+manifest = yaml.safe_load(req.text)
+```
+
+```{python}
+pin_paths = {}
+for key, value in manifest.items():
+    pin_paths[key] = f"{key}/{value}/"
+ 
+pin_paths   
+```
+
+The Python version has a board constructor `board_urls()`:
+
+```{python}
+board_remote = board_urls(url_root, pin_paths)
+board_remote.pin_list()
+```
+
+### Read
+
+We can read the CSV pin:
+
+```{python}
+board_remote.pin_read("penguins-csv")
+```
