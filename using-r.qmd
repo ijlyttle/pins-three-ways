@@ -52,6 +52,29 @@ Creating new version '20220805T171936Z-fa33e'
 Writing to pin 'penguins-json'
 ```
 
+And as a CSV file:
+
+```{r}
+#| eval: false
+pin_write(
+  board_here, 
+  x = penguins, 
+  name = "penguins-csv", 
+  type = "csv",
+  metadata = list(
+    authors = c("Allison Horst", "Alison Hill", "Kristen Gorman"),
+    license = "CCO",
+    url = "https://allisonhorst.github.io/palmerpenguins/"
+  ),
+  versioned = FALSE
+)
+```
+
+``` default
+Creating new version '20220807T212556Z-809e9'
+Writing to pin 'penguins-csv'
+```
+
 As you can see, the version number is a combination of the creation time (UTC) and a (shortened) hash of the contents.
 
 I also want to create an [arrow](https://arrow.apache.org/docs/r/) version of the pin. 
