@@ -19,7 +19,7 @@ library("conflicted")
 library("pinsManifest") # https://ijlyttle.github.io/pinsManifest/
 ```
 
-## Local board
+## Folder board
 
 The first step is to create a board:
 
