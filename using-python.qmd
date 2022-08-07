@@ -1,0 +1,24 @@
+---
+engine: knitr
+---
+
+# Using Python
+
+For this chapter, I will use Python via R's reticulate package.
+All code blocks that do not use Python will have a comment at the top, just like this one which uses R:
+
+
+```{r}
+# r
+library("reticulate")
+use_virtualenv("renv/python/virtualenvs/renv-python-3.10")
+```
+
+```{python}
+from pins import board_folder, board_urls
+```
+
+```{python}
+board_here = board_folder("pins")
+```
+
