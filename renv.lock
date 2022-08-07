@@ -380,14 +380,12 @@
     },
     "pillar": {
       "Package": "pillar",
-      "Version": "1.7.0",
+      "Version": "1.8.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "51dfc97e1b7069e9f7e6f83f3589c22e",
+      "Hash": "f95cf85794546c4ac2b9a6ca42e671ff",
       "Requirements": [
         "cli",
-        "crayon",
-        "ellipsis",
         "fansi",
         "glue",
         "lifecycle",
@@ -423,6 +421,29 @@
         "withr",
         "yaml",
         "zip"
+      ]
+    },
+    "pinsManifest": {
+      "Package": "pinsManifest",
+      "Version": "0.0.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "pinsManifest",
+      "RemoteUsername": "ijlyttle",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "c83669303299db41f2e7b20e4267fd7358707770",
+      "Hash": "db4f1334f70779bb06a426b1fed90787",
+      "Requirements": [
+        "cli",
+        "fs",
+        "glue",
+        "lifecycle",
+        "magrittr",
+        "pins",
+        "rlang",
+        "withr",
+        "yaml"
       ]
     },
     "pkgconfig": {
@@ -506,10 +527,10 @@
     },
     "rlang": {
       "Package": "rlang",
-      "Version": "1.0.3",
+      "Version": "1.0.4",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "9103a8f74b2114a5ed1136b471d8feca",
+      "Hash": "6539dd8c651e67e3b55b5ffea106362b",
       "Requirements": []
     },
     "rmarkdown": {
@@ -596,12 +617,11 @@
     },
     "tibble": {
       "Package": "tibble",
-      "Version": "3.1.7",
+      "Version": "3.1.8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "08415af406e3dd75049afef9552e7355",
+      "Hash": "56b6934ef0f8c68225949a8672fe1a8f",
       "Requirements": [
-        "ellipsis",
         "fansi",
         "lifecycle",
         "magrittr",
