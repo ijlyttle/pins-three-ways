@@ -1,10 +1,10 @@
-file: file529341a1cc48
-file_size: 13434
-pin_hash: ef034b8d89594249
-type: file
-title: 'penguins-arrow: a pinned . file'
+file: penguins-csv.csv
+file_size: 17299
+pin_hash: 809e9def88e78114
+type: csv
+title: 'penguins-csv: a pinned 344 x 8 data frame'
 description: ~
-created: 20220807T184628Z
+created: 20220808T201146Z
 api_version: 1.0
 user:
   authors:
