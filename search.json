@@ -47,5 +47,12 @@
     "title": "2  Using Python",
     "section": "2.2 Remote board",
     "text": "2.2 Remote board\nI don’t think I will create a Python package; maybe I can just put together a quick script to convert a pins manafest into a dictionary.\n\nimport requests\nimport yaml\n\n# read file, parse into manifest\nurl_root = \"https://ijlyttle.github.io/pins-three-ways/pins\"\nreq = requests.get(f\"{url_root}/pins.txt\")\nmanifest = yaml.safe_load(req.text)\n\n\npin_paths = {}\nfor key, value in manifest.items():\n    pin_paths[key] = f\"{key}/{value}/\"\n \npin_paths   \n\n{'penguins-arrow': 'penguins-arrow/20220807T184628Z-ef034/', 'penguins-csv': 'penguins-csv/20220807T212556Z-809e9/', 'penguins-json': 'penguins-json/20220807T184610Z-fa33e/'}\n\n\nThe Python version has a board constructor board_urls():\n\nboard_remote = board_urls(url_root, pin_paths)\nboard_remote.pin_list()\n\n['penguins-arrow', 'penguins-csv', 'penguins-json']\n\n\n\n2.2.1 Read\nWe can read the CSV pin:\n\nboard_remote.pin_read(\"penguins-csv\")\n\n       species     island  bill_length_mm  ...  body_mass_g     sex  year\n0       Adelie  Torgersen            39.1  ...       3750.0    male  2007\n1       Adelie  Torgersen            39.5  ...       3800.0  female  2007\n2       Adelie  Torgersen            40.3  ...       3250.0  female  2007\n3       Adelie  Torgersen             NaN  ...          NaN     NaN  2007\n4       Adelie  Torgersen            36.7  ...       3450.0  female  2007\n..         ...        ...             ...  ...          ...     ...   ...\n339  Chinstrap      Dream            55.8  ...       4000.0    male  2009\n340  Chinstrap      Dream            43.5  ...       3400.0  female  2009\n341  Chinstrap      Dream            49.6  ...       3775.0    male  2009\n342  Chinstrap      Dream            50.8  ...       4100.0    male  2009\n343  Chinstrap      Dream            50.2  ...       3775.0  female  2009\n\n[344 rows x 8 columns]"
+  },
+  {
+    "objectID": "using-javascript.html",
+    "href": "using-javascript.html",
+    "title": "3  Using JavaScript",
+    "section": "",
+    "text": "Here’s a link to an Observable notebook; it will have to do for now."
   }
 ]
