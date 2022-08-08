@@ -9,6 +9,7 @@ book:
     - index.qmd
     - using-r.qmd
     - using-python.qmd
+    - using-javascript.qmd
 
 date: today
 date-format: "YYYY-MM-DD"
