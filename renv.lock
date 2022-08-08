@@ -465,8 +465,8 @@
       "RemoteRepo": "pinsManifest",
       "RemoteUsername": "ijlyttle",
       "RemoteRef": "HEAD",
-      "RemoteSha": "c83669303299db41f2e7b20e4267fd7358707770",
-      "Hash": "db4f1334f70779bb06a426b1fed90787",
+      "RemoteSha": "b2c7fd2b019d8f6411a1fd759c19313b9cd80cc1",
+      "Hash": "85165f9af96549487607a5e81e898e0f",
       "Requirements": [
         "cli",
         "fs",
