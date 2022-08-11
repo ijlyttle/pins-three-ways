@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.1.2",
+    "Version": "4.2.1",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -9,7 +9,7 @@
     ]
   },
   "Python": {
-    "Version": "3.10.2",
+    "Version": "3.8.9",
     "Type": "virtualenv",
     "Name": "./renv/python/virtualenvs/renv-python-3.10"
   },
