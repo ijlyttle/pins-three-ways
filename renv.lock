@@ -52,10 +52,10 @@
     },
     "arrow": {
       "Package": "arrow",
-      "Version": "8.0.0",
+      "Version": "9.0.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "58b7ef7a5c997e324767b86ae0bb0896",
+      "Hash": "2c983e54b9911864bcd83de28a4c3acb",
       "Requirements": [
         "R6",
         "assertthat",
@@ -465,8 +465,8 @@
       "RemoteRepo": "pinsManifest",
       "RemoteUsername": "ijlyttle",
       "RemoteRef": "HEAD",
-      "RemoteSha": "b2c7fd2b019d8f6411a1fd759c19313b9cd80cc1",
-      "Hash": "85165f9af96549487607a5e81e898e0f",
+      "RemoteSha": "82a2ad501e70be3d487f4eed4da46410199283ba",
+      "Hash": "c07d5cc21b84ec58f6d5e5b7a885fcad",
       "Requirements": [
         "cli",
         "fs",

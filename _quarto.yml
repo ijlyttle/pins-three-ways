@@ -7,8 +7,8 @@ book:
   date: "8/4/2022"
   chapters:
     - index.qmd
-    - using-r.qmd
-    - using-python.qmd
+    #- using-r.qmd
+    #- using-python.qmd
     - using-javascript.qmd
 
 date: today
