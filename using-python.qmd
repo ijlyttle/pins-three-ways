@@ -50,9 +50,10 @@ manifest = yaml.safe_load(req.text)
 ```
 
 ```{python}
+# use the most-recent version
 pin_paths = {}
 for key, value in manifest.items():
-    pin_paths[key] = f"{key}/{value}/"
+    pin_paths[key] = max(value)
  
 pin_paths   
 ```
