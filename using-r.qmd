@@ -71,7 +71,7 @@ pin_write(
 ```
 
 ``` default
-Creating new version '20220807T212556Z-809e9'
+Creating new version '20220811T170157Z-809e9'
 Writing to pin 'penguins-csv'
 ```
 
@@ -120,7 +120,7 @@ pin_write_arrow_uncompressed(
 ```
 
 ``` default
-Creating new version '20220805T175034Z-ef034'
+Creating new version '20220811T170224Z-ef034'
 Writing to pin 'penguins-arrow'
 ```
 
