@@ -1,0 +1,8 @@
+file: time-csv.csv
+file_size: 390
+pin_hash: 06d53bab42469999
+type: csv
+title: 'time-csv: a pinned 11 x 3 data frame'
+description: ~
+created: 20220811T224202Z
+api_version: 1.0

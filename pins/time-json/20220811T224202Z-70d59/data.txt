@@ -1,0 +1,8 @@
+file: time-json.json
+file_size: 718
+pin_hash: 70d59b91f435679c
+type: json
+title: 'time-json: a pinned 11 x 3 data frame'
+description: ~
+created: 20220811T224202Z
+api_version: 1.0

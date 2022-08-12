@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2022-08-11">
+<meta name="dcterms.date" content="2022-08-12">
 
 <title>Pins: Three Ways - 2&nbsp; Using Python</title>
 <style>
@@ -184,6 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#folder-board" id="toc-folder-board" class="nav-link active" data-scroll-target="#folder-board"> <span class="header-section-number">2.1</span> Folder board</a>
   <ul class="collapse">
   <li><a href="#read" id="toc-read" class="nav-link" data-scroll-target="#read"> <span class="header-section-number">2.1.1</span> Read</a></li>
+  <li><a href="#timeseries" id="toc-timeseries" class="nav-link" data-scroll-target="#timeseries"> <span class="header-section-number">2.1.2</span> Timeseries</a></li>
   </ul></li>
   <li><a href="#remote-board" id="toc-remote-board" class="nav-link" data-scroll-target="#remote-board"> <span class="header-section-number">2.2</span> Remote board</a>
   <ul class="collapse">
@@ -208,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2022-08-11</p>
+      <p class="date">2022-08-12</p>
     </div>
   </div>
     
@@ -224,7 +225,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">use_virtualenv</span>(<span class="st">"renv/python/virtualenvs/renv-python-3.10"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pins <span class="im">import</span> board_folder, board_urls</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pins <span class="im">import</span> board_folder, board_urls</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyarrow <span class="im">import</span> feather</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="folder-board" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="folder-board"><span class="header-section-number">2.1</span> Folder board</h2>
@@ -232,9 +235,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>board_here <span class="op">=</span> board_folder(<span class="st">"pins"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>board_here.pin_list()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>['pins.txt', 'penguins-arrow', 'penguins-json', 'penguins-csv']</code></pre>
+<pre><code>['time-json', 'time-arrow', 'time-csv', 'pins.txt', 'penguins-arrow', 'penguins-json', 'penguins-csv']</code></pre>
 </div>
 </div>
+<p>Should this be listing a test file?</p>
 <section id="read" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="read"><span class="header-section-number">2.1.1</span> Read</h3>
 <div class="cell">
@@ -260,34 +264,105 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
+<section id="timeseries" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="timeseries"><span class="header-section-number">2.1.2</span> Timeseries</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>time_csv <span class="op">=</span> board_here.pin_read(<span class="st">"time-csv"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>time_csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          date             datetime  value
+0   2010-01-01  2020-09-01 00:00:00      0
+1   2010-01-02  2020-09-01 00:00:01      1
+2   2010-01-03  2020-09-01 00:00:02      2
+3   2010-01-04  2020-09-01 00:00:03      3
+4   2010-01-05  2020-09-01 00:00:04      4
+5   2010-01-06  2020-09-01 00:00:05      5
+6   2010-01-07  2020-09-01 00:00:06      6
+7   2010-01-08  2020-09-01 00:00:07      7
+8   2010-01-09  2020-09-01 00:00:08      8
+9   2010-01-10  2020-09-01 00:00:09      9
+10  2010-01-11  2020-09-01 00:00:10     10</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>time_csv.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>date        object
+datetime    object
+value        int64
+dtype: object</code></pre>
+</div>
+</div>
+<p>We are not parsing dates or datetimes. We don’t have the timezone.</p>
+<p>There’s no driver yet for JSON, so let’s try Arrow:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this seems hacky, but I'm sure it will get sorted out</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>time_arrow <span class="op">=</span> pd.read_feather(board_here.pin_read(<span class="st">"time-arrow"</span>)[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>time_arrow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          date                  datetime  value
+0   2010-01-01 2020-09-01 00:00:00-06:00      0
+1   2010-01-02 2020-09-01 00:00:01-06:00      1
+2   2010-01-03 2020-09-01 00:00:02-06:00      2
+3   2010-01-04 2020-09-01 00:00:03-06:00      3
+4   2010-01-05 2020-09-01 00:00:04-06:00      4
+5   2010-01-06 2020-09-01 00:00:05-06:00      5
+6   2010-01-07 2020-09-01 00:00:06-06:00      6
+7   2010-01-08 2020-09-01 00:00:07-06:00      7
+8   2010-01-09 2020-09-01 00:00:08-06:00      8
+9   2010-01-10 2020-09-01 00:00:09-06:00      9
+10  2010-01-11 2020-09-01 00:00:10-06:00     10</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>time_arrow.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>date                                object
+datetime    datetime64[ns, America/Denver]
+value                                int32
+dtype: object</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>time_arrow[<span class="st">'date'</span>].values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>array([datetime.date(2010, 1, 1), datetime.date(2010, 1, 2),
+       datetime.date(2010, 1, 3), datetime.date(2010, 1, 4),
+       datetime.date(2010, 1, 5), datetime.date(2010, 1, 6),
+       datetime.date(2010, 1, 7), datetime.date(2010, 1, 8),
+       datetime.date(2010, 1, 9), datetime.date(2010, 1, 10),
+       datetime.date(2010, 1, 11)], dtype=object)</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="remote-board" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="remote-board"><span class="header-section-number">2.2</span> Remote board</h2>
 <p>I don’t think I will create a Python package; maybe I can just put together a quick script to convert a pins manafest into a dictionary.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yaml</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># read file, parse into manifest</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>url_root <span class="op">=</span> <span class="st">"https://ijlyttle.github.io/pins-three-ways/pins"</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>url_root<span class="sc">}</span><span class="ss">/pins.txt"</span>)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>manifest <span class="op">=</span> yaml.safe_load(req.text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yaml</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># read file, parse into manifest</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>url_root <span class="op">=</span> <span class="st">"https://ijlyttle.github.io/pins-three-ways/pins"</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>req <span class="op">=</span> requests.get(<span class="ss">f"</span><span class="sc">{</span>url_root<span class="sc">}</span><span class="ss">/pins.txt"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>manifest <span class="op">=</span> yaml.safe_load(req.text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use the most-recent version</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pin_paths <span class="op">=</span> {}</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, value <span class="kw">in</span> manifest.items():</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    pin_paths[key] <span class="op">=</span> <span class="bu">max</span>(value)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>pin_paths   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use the most-recent version</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pin_paths <span class="op">=</span> {}</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, value <span class="kw">in</span> manifest.items():</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    pin_paths[key] <span class="op">=</span> <span class="bu">max</span>(value)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>pin_paths   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>{'penguins-arrow': 'penguins-arrow/20220811T170224Z-ef034/', 'penguins-csv': 'penguins-csv/20220811T170157Z-809e9/', 'penguins-json': 'penguins-json/20220811T170152Z-fa33e/'}</code></pre>
 </div>
 </div>
 <p>The Python version has a board constructor <code>board_urls()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>board_remote <span class="op">=</span> board_urls(url_root, pin_paths)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>board_remote.pin_list()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>board_remote <span class="op">=</span> board_urls(url_root, pin_paths)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>board_remote.pin_list()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>['penguins-arrow', 'penguins-csv', 'penguins-json']</code></pre>
 </div>
@@ -296,7 +371,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 data-number="2.2.1" class="anchored" data-anchor-id="read-1"><span class="header-section-number">2.2.1</span> Read</h3>
 <p>We can read the CSV pin:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>board_remote.pin_read(<span class="st">"penguins-csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>board_remote.pin_read(<span class="st">"penguins-csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       species     island  bill_length_mm  ...  body_mass_g     sex  year
 0       Adelie  Torgersen            39.1  ...       3750.0    male  2007
@@ -312,6 +387,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 343  Chinstrap      Dream            50.2  ...       3775.0  female  2009
 
 [344 rows x 8 columns]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>penguins_arrow <span class="op">=</span> pd.read_feather(board_here.pin_read(<span class="st">"penguins-arrow"</span>)[<span class="dv">0</span>])</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>penguins_arrow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       species     island  bill_length_mm  ...  body_mass_g     sex  year
+0       Adelie  Torgersen            39.1  ...       3750.0    male  2007
+1       Adelie  Torgersen            39.5  ...       3800.0  female  2007
+2       Adelie  Torgersen            40.3  ...       3250.0  female  2007
+3       Adelie  Torgersen             NaN  ...          NaN     NaN  2007
+4       Adelie  Torgersen            36.7  ...       3450.0  female  2007
+..         ...        ...             ...  ...          ...     ...   ...
+339  Chinstrap      Dream            55.8  ...       4000.0    male  2009
+340  Chinstrap      Dream            43.5  ...       3400.0  female  2009
+341  Chinstrap      Dream            49.6  ...       3775.0    male  2009
+342  Chinstrap      Dream            50.8  ...       4100.0    male  2009
+343  Chinstrap      Dream            50.2  ...       3775.0  female  2009
+
+[344 rows x 8 columns]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>penguins_arrow.dtypes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>species              category
+island               category
+bill_length_mm        float64
+bill_depth_mm         float64
+flipper_length_mm     float64
+body_mass_g           float64
+sex                  category
+year                    int32
+dtype: object</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>penguins_arrow[<span class="st">'species'</span>].values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['Adelie', 'Adelie', 'Adelie', 'Adelie', 'Adelie', ..., 'Chinstrap', 'Chinstrap', 'Chinstrap', 'Chinstrap', 'Chinstrap']
+Length: 344
+Categories (3, object): ['Adelie', 'Chinstrap', 'Gentoo']</code></pre>
 </div>
 </div>
 
