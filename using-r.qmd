@@ -16,6 +16,8 @@ library("here")
 library("palmerpenguins")
 library("waldo")
 library("conflicted")
+library("tibble")
+library("lubridate")
 library("pinsManifest") # https://ijlyttle.github.io/pinsManifest/
 ```
 
@@ -156,6 +158,69 @@ compare(penguins, penguins_arrow)
 ```
 
 The fact that there are no differences is one of the many cool things about arrow.
+
+### Timeseries
+
+One thing I am interested in is how to manage data frames that contain dates or datetimes. 
+Concretely, in R, `POSIXct` and `Date`; I know there are other flavors of time, but for me, these are the big two.
+
+```{r}
+index <- seq(0, 10)
+
+time <- 
+  tibble(
+    date = ymd("2010-01-01") + index, # one per day
+    datetime = 
+      ymd_hms("2020-09-01 00:00:00", tz = "America/Denver") + index, # per second
+    value = index
+  ) %>%
+  print()
+
+tz(time$datetime)
+```
+
+Let's write this out for csv, json, and arrow:
+
+```{r}
+#| eval: false
+pin_write(board_here, x = time, name = "time-csv", type = "csv")
+pin_write(board_here, x = time, name = "time-json", type = "json")
+pin_write_arrow_uncompressed(board_here, x = time, name = "time-arrow")
+```
+
+```default
+Creating new version '20220811T224202Z-06d53'
+Writing to pin 'time-csv'
+
+Creating new version '20220811T224202Z-70d59'
+Writing to pin 'time-json'
+
+Creating new version '20220811T224202Z-b1900'
+Writing to pin 'time-arrow'
+```
+
+```{r}
+time_csv <- pin_read(board_here, "time-csv") %>% print()
+compare(time, time_csv)
+```
+
+The reading function seems to use `stringsAsFactors = TRUE`, and the seriailizing function is writes out to local time.
+The time-zone is not taken into account, but that's hard to automate.
+
+```{r}
+time_json <- pin_read(board_here, "time-json") %>% print()
+compare(time, time_json)
+```
+For the JSON pin, we get strings, but we see that the time had been serialized as a local time.
+It would be more-robust to serialize as ISO-8601, then somehow store the timezone as metadata.
+That said, it would be difficult to imagine how to do that.
+
+
+```{r}
+compare(time, pin_read_arrow_uncompressed(board_here, "time-arrow"))
+```
+
+Again, Arrow is working as advertised.
 
 ### Deploying pins
 

@@ -4,7 +4,6 @@ project:
 book:
   title: "Pins: Three Ways"
   author: "Ian Lyttle"
-  date: "8/4/2022"
   chapters:
     - index.qmd
     - using-r.qmd

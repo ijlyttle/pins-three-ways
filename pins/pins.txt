@@ -9,3 +9,9 @@ penguins-json:
 - penguins-json/20220808T201103Z-fa33e/
 - penguins-json/20220808T201137Z-fa33e/
 - penguins-json/20220811T170152Z-fa33e/
+time-arrow:
+- time-arrow/20220811T224202Z-b1900/
+time-csv:
+- time-csv/20220811T224202Z-06d53/
+time-json:
+- time-json/20220811T224202Z-70d59/
