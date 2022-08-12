@@ -16,6 +16,8 @@ use_virtualenv("renv/python/virtualenvs/renv-python-3.10")
 
 ```{python}
 from pins import board_folder, board_urls
+from pyarrow import feather
+import pandas as pd
 ```
 
 ## Folder board
@@ -25,6 +27,8 @@ board_here = board_folder("pins")
 board_here.pin_list()
 ```
 
+Should this be listing a test file?
+
 ### Read
 
 ```{python}
@@ -33,6 +37,36 @@ penguins_csv = board_here.pin_read("penguins-csv")
 
 ```{python}
 penguins_csv
+```
+
+
+### Timeseries
+
+```{python}
+time_csv = board_here.pin_read("time-csv")
+time_csv
+time_csv.dtypes
+```
+
+We are not parsing dates or datetimes. We don't have the timezone.
+
+There's no driver yet for JSON, so let's try Arrow:
+
+```{python}
+# this seems hacky, but I'm sure it will get sorted out
+time_arrow = pd.read_feather(board_here.pin_read("time-arrow")[0])
+```
+
+```{python}
+time_arrow
+```
+
+```{python}
+time_arrow.dtypes
+```
+
+```{python}
+time_arrow['date'].values
 ```
 
 ## Remote board
@@ -71,4 +105,11 @@ We can read the CSV pin:
 
 ```{python}
 board_remote.pin_read("penguins-csv")
+```
+
+```{python}
+penguins_arrow = pd.read_feather(board_here.pin_read("penguins-arrow")[0])
+penguins_arrow
+penguins_arrow.dtypes
+penguins_arrow['species'].values
 ```
