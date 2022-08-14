@@ -45,11 +45,11 @@ To avoid this, for code-blocks where I write pins:
  - I paste the response into the prose manually.
 ::: 
 
-This book is rendered using the quarto actions.
+This book is rendered using the quarto actions, but not on pull requests.
 
 ## Perspectives
 
-I have some ideas for the conculsions I might come to in the course of writing the rest of this material. 
+I have some ideas for the conclusions I might come to in the course of writing the rest of this material. 
 That said, I'll want to make some *actual observations* before calling for any action.
 I'll update this section as I go.
 
