@@ -1,0 +1,15 @@
+file: filecb452db28e5
+file_size: 13434
+pin_hash: ef034b8d89594249
+type: file
+title: 'penguins-arrow: a pinned . file'
+description: ~
+created: 20220808T201203Z
+api_version: 1.0
+user:
+  authors:
+  - Allison Horst
+  - Alison Hill
+  - Kristen Gorman
+  license: CCO
+  url: https://allisonhorst.github.io/palmerpenguins/

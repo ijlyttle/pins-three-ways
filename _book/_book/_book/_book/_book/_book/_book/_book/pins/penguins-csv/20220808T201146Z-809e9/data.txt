@@ -1,0 +1,15 @@
+file: penguins-csv.csv
+file_size: 17299
+pin_hash: 809e9def88e78114
+type: csv
+title: 'penguins-csv: a pinned 344 x 8 data frame'
+description: ~
+created: 20220808T201146Z
+api_version: 1.0
+user:
+  authors:
+  - Allison Horst
+  - Alison Hill
+  - Kristen Gorman
+  license: CCO
+  url: https://allisonhorst.github.io/palmerpenguins/

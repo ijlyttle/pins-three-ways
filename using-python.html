@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2022-08-12">
+<meta name="dcterms.date" content="2022-08-14">
 
 <title>Pins: Three Ways - 2&nbsp; Using Python</title>
 <style>
@@ -209,7 +209,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2022-08-12</p>
+      <p class="date">2022-08-14</p>
     </div>
   </div>
     
@@ -235,7 +235,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>board_here <span class="op">=</span> board_folder(<span class="st">"pins"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>board_here.pin_list()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>['time-json', 'time-arrow', 'time-csv', 'pins.txt', 'penguins-arrow', 'penguins-json', 'penguins-csv']</code></pre>
+<pre><code>['penguins-csv', 'time-csv', 'penguins-arrow', 'time-arrow', 'time-json', 'penguins-json', 'pins.txt']</code></pre>
 </div>
 </div>
 <p>Should this be listing a test file?</p>
@@ -356,7 +356,7 @@ dtype: object</code></pre>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>pin_paths   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>{'penguins-arrow': 'penguins-arrow/20220811T170224Z-ef034/', 'penguins-csv': 'penguins-csv/20220811T170157Z-809e9/', 'penguins-json': 'penguins-json/20220811T170152Z-fa33e/'}</code></pre>
+<pre><code>{'penguins-arrow': 'penguins-arrow/20220811T170224Z-ef034/', 'penguins-csv': 'penguins-csv/20220811T170157Z-809e9/', 'penguins-json': 'penguins-json/20220811T170152Z-fa33e/', 'time-arrow': 'time-arrow/20220811T224202Z-b1900/', 'time-csv': 'time-csv/20220811T224202Z-06d53/', 'time-json': 'time-json/20220811T224202Z-70d59/'}</code></pre>
 </div>
 </div>
 <p>The Python version has a board constructor <code>board_urls()</code>:</p>
@@ -364,7 +364,7 @@ dtype: object</code></pre>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>board_remote <span class="op">=</span> board_urls(url_root, pin_paths)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>board_remote.pin_list()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>['penguins-arrow', 'penguins-csv', 'penguins-json']</code></pre>
+<pre><code>['penguins-arrow', 'penguins-csv', 'penguins-json', 'time-arrow', 'time-csv', 'time-json']</code></pre>
 </div>
 </div>
 <section id="read-1" class="level3" data-number="2.2.1">
