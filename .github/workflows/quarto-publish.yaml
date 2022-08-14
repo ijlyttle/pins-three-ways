@@ -15,11 +15,6 @@ jobs:
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          # To install LaTeX to build PDF book
-          tinytex: true
-          # uncomment below and fill to pin a version
-          # version: 0.9.105
 
       # add software dependencies here
       - name: Install additional libraries on Linux
@@ -30,17 +25,12 @@ jobs:
       - name: Set up renv
         uses: r-lib/actions/setup-renv@v2
 
-      - name: Render book
-        # Add any command line argument needed
-        run: |
-          quarto render
+      - name: Render Quarto Project
+        uses: quarto-dev/quarto-actions/render@v2
 
-      - name: Deploy 🚀
-        # only deploy when push to main
+      - name: Publish to GitHub Pages
         if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: quarto-dev/quarto-actions/publish@v2
         with:
-          # The branch the action should deploy to.
-          branch: gh-pages
-          # The folder the action should deploy. Adapt if you changed in Quarto config
-          folder: _book
+          render: false
+          target: gh-pages
