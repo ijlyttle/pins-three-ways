@@ -25,6 +25,18 @@ jobs:
       - name: Set up renv
         uses: r-lib/actions/setup-renv@v2
 
+      - name: Python Shared?
+        run: |
+         which python
+         python --version
+         python -c "import sysconfig; print(sysconfig.get_config_var('Py_ENABLE_SHARED'))"
+
+      - name: Diagnose Python
+        run: |
+          reticulate::py_available(initialize = TRUE)
+          reticulate::py_config()
+        shell: Rscript {0}
+
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
 
