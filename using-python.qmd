@@ -79,7 +79,7 @@ import yaml
 
 # read file, parse into manifest
 url_root = "https://ijlyttle.github.io/pins-three-ways/pins"
-req = requests.get(f"{url_root}/pins.txt")
+req = requests.get(f"{url_root}/_pins.yaml")
 manifest = yaml.safe_load(req.text)
 ```
 
