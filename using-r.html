@@ -483,7 +483,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="deploying-pins" class="level3" data-number="1.1.4">
 <h3 data-number="1.1.4" class="anchored" data-anchor-id="deploying-pins"><span class="header-section-number">1.1.4</span> Deploying pins</h3>
-<p>To make it easier to deploy a board on GitHub (or any other web server), I am using the experimental <a href="https://ijlyttle.github.io/pinsManifest/">pinsManifest</a> package to create a manifest of pins. This file, <code>pins.txt</code> is written to the board’s root directory; it will make it easier to create a <code>board_url()</code> to read pins.</p>
+<p>To make it easier to deploy a board on GitHub (or any other web server), I am using the experimental <a href="https://ijlyttle.github.io/pinsManifest/">pinsManifest</a> package to create a manifest of pins. This file, <code>_pins.yaml</code> is written to the board’s root directory; it will make it easier to create a <code>board_url()</code> to read pins.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_board_manifest</span>(board_here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -491,8 +491,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="remote-board" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="remote-board"><span class="header-section-number">1.2</span> Remote board</h2>
-<p>With this board now availble using GitHub Pages, we can use <code>board_url()</code>, which can be useful for sharing data publicly, i.e.&nbsp;without requiring authentication.</p>
-<p>Note that we use the <code>board_url_manifest()</code> in the experimental <a href="https://ijlyttle.github.io/pinsManifest/">pinsManifest</a> package to build the board. This uses the manifest file, <code>pins.txt</code>, to compile the information needed to build a <code>pins::board_url()</code>.</p>
+<p>With this board now available using GitHub Pages, we can use <code>board_url()</code>, which can be useful for sharing data publicly, i.e.&nbsp;without requiring authentication.</p>
+<p>Note that we use the <code>board_url_manifest()</code> in the experimental <a href="https://ijlyttle.github.io/pinsManifest/">pinsManifest</a> package to build the board. This uses the manifest file, <code>_pins.yaml</code>, to compile the information needed to build a <code>pins::board_url()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>board_remote <span class="ot">&lt;-</span> </span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">board_url_manifest</span>(<span class="st">"https://ijlyttle.github.io/pins-three-ways/pins/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
