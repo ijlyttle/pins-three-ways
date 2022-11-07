@@ -229,7 +229,7 @@ This file, `pins.txt` is written to the board's root directory; it will make it 
 
 ```{r}
 #| eval: false
-pin_write_manifest(board_here)
+write_board_manifest(board_here)
 ```
 
 ## Remote board
